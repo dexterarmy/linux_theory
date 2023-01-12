@@ -98,5 +98,19 @@ chmod 660 index.html
 13. `permissions` are `evaluated` in linear fashion from `left to right.`. Operating system decides if we are allowed to do something
 14. so if owner is accessing file, owner permissions will apply before group and others. It will not evaluate to the permissions of the group because it already matched with owner
 15. if a user who is not the owner but part of group then group permissions will apply
-16. change permissions -> `chmod permissions file/direc`
-17. add permissions on top of existing ones ->
+16. change permissions -> `chmod list_of_permissions file/direc`
+17. add permissions on top of existing ones ->`user -> u+rwx`, `group -> g+rwx`, `o+rwx`
+18. remove permissions -> `user -> u-rwx`, same for others
+19. setting exact permissions -> `user -> u=rwx`, same for others, `g=` -> remove all permissions for group
+20. chaining permissions -> `chmod u+rw, g=r, o= file/direc`
+21. `stat` -> another command that shows us permissions
+22. Octal permissions -> 0640, `first 0 is for special permissions like setUid, setGid and stickyBit`
+23. `sticky bit` is a permission bit that is set on a file or a directory which lets only the owner of the file/directory or the root user to delete or rename the particular file or directory. It is mainly used to protect critical files and directories from getting accidentally deleted or modified
+24. set uid, set gid, sticky bit `????`
+25. in octal system -> each permission is set in binary
+26. once we identify the octal number we want to set, we can use it in chmod command. So instead of specifying permissions for each we can just provide a number like `chmod 777 file/direc`
+27. `read -> 4 , write -> 2 , execute -> 1`
+
+## set uid, set gid, sticky bits ->
+
+-- these three are the type of permissions which canbe given to file/direc
