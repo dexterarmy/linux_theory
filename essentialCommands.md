@@ -80,3 +80,23 @@ chmod 660 index.html
 -- `ls --full-time` -> display the full/exact last modified time for the files
 -- `uname` -> print system information
 -- `lsb_release` - print distribution-specific information
+
+## File permissions ->
+
+1. only the `owner` of files or directories can change permissions. Exception is root user/super user/administrator account which can change permissions of any file or direc
+2. to change group => `chgrp group_name file/direc`
+3. we can only change to `groups` which our user is a part of
+4. current user belongs to which group -> `groups` command
+5. change user owner of a file/direc -> `chown`. Only the root user can change the user owner. SO we have to use `sudo`, to temporarily get root priviledges
+6. change user and group in one command -> `sudo chown user:group file/direc`
+7. `directory -> d , regular file -> - , character device -> c, link -> l, socket file -> s, pipe -> p, block device -> b` -> starting file/direc permission `symbol`
+8. next 9 char after symbol show us permissions -> first three(permissions for user that `owns` the file), next three for `group`, last three for `other` users(that is not aaron or part of family group(our example in this case))
+9. file -> r = user, group, other user can read | `- -> no permission` | w -> write to modify content | x -> execute/run file
+10. some files can be programs or shell scripts, list of instructions we can execute
+11. `directories` -> files and subdirectories inside a directory. `r` -> can see files and subdirec(ls). `w` -> create or delete entries in direc(mkdir). `x` -> execute into this direc, like `cd direc`
+12. when direc are accessible, we will normally find r and x permissions enabled
+13. `permissions` are `evaluated` in linear fashion from `left to right.`. Operating system decides if we are allowed to do something
+14. so if owner is accessing file, owner permissions will apply before group and others. It will not evaluate to the permissions of the group because it already matched with owner
+15. if a user who is not the owner but part of group then group permissions will apply
+16. change permissions -> `chmod permissions file/direc`
+17. add permissions on top of existing ones ->
