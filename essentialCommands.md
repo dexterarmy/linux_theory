@@ -114,3 +114,53 @@ chmod 660 index.html
 ## set uid, set gid, sticky bits ->
 
 -- these three are the type of permissions which canbe given to file/direc
+-- `SUID bit` -> when this is set on a file, it means when file is executed it is going to be executed as the user ID of the owner of the file instead of userid of the person running the file. So it is useful when we use `su` command, `passwd` command when you go to change your password as a regular user
+-- first digit will be suid digit
+-- The value of the suid bit in octal is 4000.
+-- The value of the SGID digit in octal is 2000
+-- The sticky bit is represented by the digit 1 in octal
+-- `capital S` -> SUID is set but not execute bit
+-- `lowercase s` -> execute bit and suid bit both are set
+-- `SGID` -> same as SUID, chmod 2664 sgifile -> capital S (sgid bit is set), (lowercase s, sgid and execute bit is set)
+-- `find . -perm /4000` -> find files whose suid is set
+-- set both at the same time -> `chmod 6664 sguid`
+-- `sticky bit` -> usually set on directories that are shared between people. It allows the user that owns a file in that direc and the root user to remove that file. No matter what the permissions on that directory are only the user owner can remove that
+-- ` The sticky bit set on a directory means that only the user owner of the file will be able to delete the file from the directory, regardless of the permissions on the directory`
+-- `For example, if the root user created a file in a directory with the sticky bit set, only the root user will be able to delete that file, regardless of the permissions on the directory`
+-- since we had sticky bit permission on the parent directory, a non privilege user is allowed to remove or modify files which are owned by self only
+-- `chmod +t stickydir` , `chmod 1777 stickydir`
+-- `ls -ld` -> to see the permissions on the directory itlsef
+-- You can create a custom error message to appear if someone else tries to delete a file from a sticky bit directory
+
+## Search for files:
+
+-- `find usr/share/ -name "*.jpg"`
+-- `find /lib64/ -size -10M`
+-- look at files modified at last minute -> `find /dev/ -mmin -1`
+-- so this way with similar commands we can see what configuration files your sys admin team changed in the last hour
+-- `find` -> search for files
+-- `find [/path/to/directory] [search_parameters]`
+-- `find /bin -name file.txt` -> name is the search paramter used to specify the name of file we are looking for
+-- if no path then searches in current directory
+-- remember this with `first we have to go there then we will find it` so first search location then search params
+-- `-name` is case sensitive
+-- `-iname` -> case insensitive
+-- `wild card expression` -> star is a joker card for text. It will match anything even if it is 0 or 100 chars
+-- `find -mmin 5` -> find files modified in that previous 5th minute only
+-- `find -mmin -5` -> find all files modified in last 5 min
+-- `find -mmin +5` -> find files modified before 5 min and to infinity
+-- `mtime` -> modified in days or past 24 hours period, `0` -> lists past 24hours, `1` -> 24 to 48 hours
+-- `modification` -> creation and editing file, when content is modified
+-- `change time` -> when metdata(data about data) is changed, so data about our file eg: file permissions
+-- `find cmin -5` -> find files changes in the last 5 minutes
+-- `find -size`
+-- `find -size 512k` -> to find files with size exactly 512kb
+-- `c` -> bytes, like M,G,k,c
+-- parameters are also referred to as search expressions sometimes because we can extend the parameter and add more parts to it to create an expression
+-- `find -name "f*" -size 512k` -> so we specified multiple options(working like AND operator)
+-- `find -name "f*" -o -size 512k` -> OR
+-- `find -not -name "f*"` -> NOT operator
+-- `find \! -name "f*"` -> we escaped the exclaimation because bash considers exclaimation mark as a special character
+-- 664 means u+rw, g+rw, o+r
+-- find files based on permissions -> `find -perm 664`
+-- find files with atleast this permission -> `find -perm -664`
