@@ -58,6 +58,8 @@
 10. `snapshot` -> create backup of your VM's state at a particular point in time and then restore to that backup in a later point in time. Useful when testing different software and functionality on VM like making a major change to VM like upgrading verison of software or package
 11. restore the snapshot state and then detachable start the VM
 12. Can also clone new VM from snapshot, same process we followed earlier
+13. `new VM clones from the snapshots of the cloned VM`. Useful for `creating multiple copies` of the `same VM` or for `restoring the cloned VM back to its current state`
+14. baseVM , cloned vm with `linked clone` to base VM, then 3rd vm `linked` to snapshot of 2nd VM. If we delete 2nd VM will disc space of 3rd VM deleted `????`
 
 
 ## Vagrant -> 
@@ -76,3 +78,15 @@
 12. there are boxes that have automated clusters such as kubernetes clusters which has multiple VMs
 13. we can also use vagrant in VMware environemnt such as VMware workstation and VMware fusion, microsoft huper-V environment
 14. so easily create and deploy virtual machines / local lab env and save all the work we did in configuration in vagrantfile
+15. We must have the VM provider like virtual box, VMware workstation etc installed before we create VM using vagrant
+16. If other than virtual box then when running vagrant up specify it with provider options
+17. `vagrant halt` -> shutdown
+18. everytime we modify vagrant file, run `vagrant reload` for the changes to take effect
+19. `memory`, `vCPU`
+20. if VM booting is stuck, power off VM using `vagrant halt`, then go to `vagrant file` and `increase the timeout`, `config.vm.boot_timeout`
+21. reloading the vagrant file, restarts the VM
+22. so vagrant is a good tool to setup custom lab environment
+
+## Networking:
+
+1. 
